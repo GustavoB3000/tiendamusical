@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+        
+<!-- INTEGRAR EL ARCHIVO DE CONFIGURACION PROPERTIES -->
+<context:property-placeholder location="classpath*:config/application-properties.properties"/>        
+
+<!-- PERMITE EL USO DE ANOTACIONES CON SPRING EN EL BASEPACKAGE MENCINADO -->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.gustavo"></context:component-scan>
+
+<!-- SE ENCARGA DE REALIZAR LA CONEXION A LA DB -->
+<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+	<property name="driverClassName" value="${spring.datasource.driverClassName}"></property>
+	<property name="url" value="${spring.datasource.url}"></property>
+	<property name="username" value="${spring.datasource.username}"></property>
+	<property name="password" value="${spring.datasource.password}"></property>
+	
+	<!-- LIMITAR CONEXIONES A LA DB: -->
+<!-- 	<property name="minPoolSize" value="5"></property> -->
+<!-- 	<property name="maxPoolSize" value="10"></property> -->
+<!-- 	<property name="maxIdleTime" value="40000"></property> -->
+</bean>
+
+<!-- SE ENCARGA DE ADMINISTRAR Y REGISTRAR LOS ENTITIES DE JPA Y SUS PROPIEDADES -->
+<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="packagesToScan" value="com.gustavo.tiendamusicalentities.entities"></property>
+	<property name="jpaProperties">
+		<props>
+			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			<prop key="hibernate.show_sql">true</prop>
+			<prop key="hibernate.jdbc.time_zone">UTC</prop>
+		</props>
+	</property>
+	
+	<property name="persistenceProvider">
+		<bean class="org.hibernate.jpa.HibernatePersistenceProvider"></bean>
+	</property>
+</bean>
+
+<!-- SE ENCARGA DE GESTIONAR LAS TRANSACCIONES PARA EL CRUD DE LOS ENTITIES -->
+<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	<property name="dataSource" ref="dataSource"></property>
+</bean>
+
+<!-- PERMITE UTILIZAR LA ANOTACION @Transactional DE SPRING PAR EJECUTAR TRANSACCIONES DE JPA -->
+<tx:annotation-driven transaction-manager="transactionManager"/>
+
+<!-- PERMITE REGISTRAR LAS CLASES QUE SE ENCARGAN DE EJECUTAR LAS TRANSACCIONES A LA DB (DAO) -->
+<jpa:repositories base-package="com.gustavo.tiendamusicaldata.repositories" entity-manager-factory-ref="emf"></jpa:repositories>
+
+</beans>

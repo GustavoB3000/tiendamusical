@@ -22,12 +22,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<artifactId>tiendamusical-services</artifactId>
-			<groupId>com.gustavo</groupId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -61,6 +55,12 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>${prime-faces-version}</version>
+		</dependency>
+
+		<dependency>
+			<artifactId>tiendamusical-services</artifactId>
+			<groupId>com.gustavo</groupId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

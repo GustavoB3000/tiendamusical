@@ -1,0 +1,41 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.body{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login{ 
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__container{
+	display: block;
+    width: 50%;
+    height: 70%;
+}
+
+.login__panel{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: inherit;
+}
+
+.login__img{
+	display: block;
+	border-radius: 50%;
+	object-fit: cover;
+	width: 10em;
+	height: 10em;
+	margin: 0 auto;
+}

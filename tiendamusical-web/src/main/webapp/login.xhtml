@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Login</title>
+	<h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+</h:head>
+
+<h:body
+	style="background-image: url('resources/images/background.jpg');"
+	class="body">
+
+	<div class="login">
+		<div class="login__container">
+
+			<!-- FOMULARIO ORIGINAL -->
+			<div class="grid ui-fluid">
+				<h:form id="formLogin">
+				
+					<p:growl id="growl" showDetail="true" skipDetailIfEqualsSummary="true"/>
+					
+					<p:panel id="pnlLogin" header="Inicio de Sesión"
+						styleClass="pnlLogin" class="login__panel">
+
+						<p:graphicImage name="images/login.jpg" class="login__img"></p:graphicImage>
+
+						<p:panelGrid id="pnlGridLogin" columns="1"
+							columnClasses="ui-md-12" layout="grid"
+							styleClass="ui-panelgrid-blank">
+							
+								<p:outputLabel value="Usuario: " styleClass="colorText lblFloat"
+									for="txtUser"></p:outputLabel>
+									<p:inputText id="txtUser" value="#{loginController.user}"
+										required="true" requiredMessage="Necesita poner un usuario."></p:inputText>
+	
+								<p:outputLabel value="Password: " styleClass="colorText lblFloat"
+									for="txtPass"></p:outputLabel>
+									<p:password id="txtPass" value="#{loginController.password}"
+										required="true" requiredMessage="La contraseña es necesaria."></p:password>
+
+								<p:outputLabel></p:outputLabel>
+									<p:commandButton value="Enviar"
+										action="#{loginController.entrar}"
+										update="pnlGridLogin, growl"></p:commandButton>
+						</p:panelGrid>
+
+					</p:panel>
+				</h:form>
+
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

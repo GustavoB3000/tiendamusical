@@ -59,6 +59,6 @@
 <tx:annotation-driven transaction-manager="transactionManager"/>
 
 <!-- PERMITE REGISTRAR LAS CLASES QUE SE ENCARGAN DE EJECUTAR LAS TRANSACCIONES A LA DB (DAO) -->
-<jpa:repositories base-package="com.gustavo.tiendamusicaldata.repositories" entity-manager-factory-ref="emf"></jpa:repositories>
+<jpa:repositories base-package="com.gustavo.tiendamusicaldata.dao" entity-manager-factory-ref="emf"></jpa:repositories>
 
 </beans>
